@@ -1,0 +1,14 @@
+#!/bin/bash
+# simple script to pronouce words 
+# need mplayer it is using tts-api.com
+API_URL="http://tts-api.com/tts.mp3?return_url=1;q="
+words=$@
+if [ -n "$words" ]
+then 
+    clean=${words// /\+}
+    CMD=`curl -s "${API_URL}${clean}"`
+    mplayer $CMD
+else
+    echo "Usage $0 <some text>"
+    exit
+fi
