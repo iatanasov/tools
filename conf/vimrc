@@ -1,0 +1,86 @@
+" An example for a vimrc file.
+"
+" Maintainer:   Bram Moolenaar <Bram@vim.org>
+" Last change:  2002 Sep 19
+"
+" To use it, copy it to
+"     for Unix and OS/2:  ~/.vimrc
+"         for Amiga:  s:.vimrc
+"  for MS-DOS and Win32:  $VIM\_vimrc
+"       for OpenVMS:  sys$login:.vimrc
+
+
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+if has("vms")
+  set nobackup      " do not keep a backup file, use versions instead
+else
+  set nobackup      " keep a backup file
+endif
+
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set textwidth=0
+set history=1000    " keep 50 lines of command line history
+set ruler       " show the cursor position all the time
+set showcmd     " display incomplete commands
+" set showmode
+set incsearch   " do incremental searching
+set nohlsearch
+set showmatch
+set nowrap
+set formatoptions=tcq
+"set number
+"color greens " tidy
+"color desert " tidy
+"color desert256
+"color sienna ,vc,charged-256,lettuce,devbox-dark-256
+"color developer
+color desert
+set laststatus=2
+set statusline=%<%f\ %{VCSCommandGetStatusLine()}\ %h%m%r%=%l,%c%V\ %P
+"set foldmethod=indent
+"set nofoldenable
+set wildmode=longest,list,full
+
+" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+" let &guioptions = substitute(&guioptions, "t", "", "g")
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+set shell=/bin/bash\ -l
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+filetype plugin on
+if has("autocmd")
+  filetype plugin indent on
+  augroup vimrcEx
+  au!
+  autocmd FileType text setlocal textwidth=78
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g" |
+    \ endif
+
+  augroup END
+
+else
+
+  set autoindent        " always set autoindenting on
+
+endif " has("autocmd")
+set directory=/tmp
+set isfname=@,48-57,/,.,_,+,,,#,$,%,~,=,:
+" highlight Search ctermbg=6
+" maped keys 
+map <F1> :shell<CR>
+map <F2> :ls<CR>:e #
+map <F12> :set number!<CR>
+map <F3> :VCS
