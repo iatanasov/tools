@@ -1,6 +1,12 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
+/* appearance */
+static const char *fonts[] = {
+    "Terminus:size=9",
+    "VL Gothic:size=10.5",
+    "WenQuanYi Micro Hei:size=10.5",
+};
 static const char font[]            = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
 static const char normbordercolor[] = "#292a2e";
 static const char normbgcolor[]     = "#000000";
@@ -15,17 +21,13 @@ static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+/* static const char *tags[] = { "1", "2", "3","4","5","6"}; */
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
-/*	{ "Firefox",  NULL,       NULL,       1 << 0,       False,       -1 }, */
-	{ "Firefox",  NULL,       NULL,       0,            False,       -1 }, 
-	{ "mplayer",  NULL,       NULL,       0,            True,       -1 },
-	{ "MPlayer",  NULL,       NULL,       0,            True,       -1 },
-	{ "mplayer2",  NULL,       NULL,       0,            True,       -1 },
-	{ "avplay",  NULL,       NULL,       0,            True,       -1 },
-	{ "Skype"  ,  NULL,       NULL,       1<<8,         True,         1 },
+	{ "Skype"  ,  NULL,       NULL,       1<< 8,        False,        0 },
+	{ "eclipse"  ,  NULL,       NULL,       1<< 0,        False,        -1 },
 };
 
 /* layout(s) */
@@ -52,8 +54,9 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
+static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "xterm", NULL };
+static const char *termcmd[]  = { "urxvt", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */

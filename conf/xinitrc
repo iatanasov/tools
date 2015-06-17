@@ -1,0 +1,16 @@
+#q
+xrandr --auto
+
+wmname LG3D &
+sbar &
+
+xset +fp /usr/share/fonts/local &
+
+xset fp rehash &
+xbindkeys &
+#q
+#while true; do
+#    dwm 2> ~/.dwm.log
+#done
+setxkbmap -model pc104 -layout us,bg -variant ,phonetic -option grp:rctrl_toggle &
+exec dwm
